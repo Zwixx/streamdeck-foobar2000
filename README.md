@@ -44,3 +44,6 @@ The status of the keys gets also updated on external controls (like the foobar20
 ## Credits
 
 - [beefweb](https://github.com/hyperblast/beefweb) plugin to control foobar2000
+
+http://localhost:23654/
+mklink /D C:\Users\%USERNAME%\AppData\Roaming\Elgato\StreamDeck\Plugins\com.davidborzek.foobar2000.sdPlugin E:\Development\js\streamdeck-foobar2000\src\com.davidborzek.foobar2000.sdPlugin

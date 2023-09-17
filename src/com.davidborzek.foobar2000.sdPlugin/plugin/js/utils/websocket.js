@@ -55,7 +55,7 @@ const websocketUtils = {
       if (currentFirstChar + 8 > text.length) {
         currentFirstChar = 0;
       }
-      websocketUtils.setTitle(
+      $SD.setTitle(
         context,
         text.substring(currentFirstChar, currentFirstChar + 8)
       );
@@ -72,7 +72,7 @@ const websocketUtils = {
     intervals[context] = setInterval(() => {
       if(currentFirstChar1 + 8 > text1.length) currentFirstChar1 = 0;
       if(currentFirstChar2 + 8 > text2.length) currentFirstChar2 = 0;
-      websocketUtils.setTitle(
+      $SD.setTitle(
         context,
         `${text1.substring(currentFirstChar1, currentFirstChar1 + 8)}\n${text2.substring(currentFirstChar2, currentFirstChar2 + 8)}`
       );

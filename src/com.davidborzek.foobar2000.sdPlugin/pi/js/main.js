@@ -1,3 +1,4 @@
+/*
 let websocket = null;
 
 let globalSettings = {};
@@ -70,3 +71,4 @@ const connectElgatoStreamDeckSocket = (
     }
   };
 };
+*/

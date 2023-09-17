@@ -1,14 +1,14 @@
 const updatePlayPauseActions = (player) => {
   contexts.playPauseAction.forEach((context) => {
     player.playbackState &&
-      websocketUtils.setState(context, PlaybackState[player.playbackState]);
+    $SD.setState(context, PlaybackState[player.playbackState]);
   });
 };
 
 const updateToggleMuteActions = (player) => {
   contexts.toggleMuteAction.forEach((context) => {
     player.volume &&
-      websocketUtils.setState(
+    $SD.setState(
         context,
         player.volume.isMuted ? MuteState.muted : MuteState.unmuted
       );
@@ -18,7 +18,7 @@ const updateToggleMuteActions = (player) => {
 const updateCurrentVolumeActions = (player) => {
   contexts.currentVolumeAction.forEach((context) => {
     player.volume &&
-      websocketUtils.setTitle(
+    $SD.setTitle(
         context,
         `${Math.ceil(100 + player.volume.value)}`
       );
@@ -36,7 +36,7 @@ const updateCurrentPlaying = (player) => {
   contexts.nowPlayingAction.forEach((context) => {
     if (player.playbackState === "stopped") {
       intervals[context] && clearInterval(intervals[context]);
-      websocketUtils.setTitle(context, "Stopped");
+      $SD.setTitle(context, "Stopped");
       return;
     }
     if (
@@ -45,7 +45,7 @@ const updateCurrentPlaying = (player) => {
     ) {
       intervals[context] && clearInterval(intervals[context]);
       player.activeItem.columns.length > 0 &&
-        websocketUtils.setAsyncTitleMultiline(
+      websocketUtils.setAsyncTitleMultiline(
           player.activeItem.columns[1],
           player.activeItem.columns[0],
           300,
@@ -59,7 +59,7 @@ const updateCurrentPlaying = (player) => {
         )
         .then((res) => {
           foobarPlayerArtwork = res;
-          websocketUtils.setImage(context, res);
+          $SD.setImage(context, res);
         });
     }
   });
@@ -98,7 +98,7 @@ eventSource.onmessage = function ({ data }) {
 };
 
 eventSource.onerror = (error) => {
-  websocketUtils.log(
+  $SD.logMessage(
     "Error to connect with foobar2000, check if foobar is running!"
   );
 };

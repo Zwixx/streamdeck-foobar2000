@@ -1,5 +1,5 @@
-class VolumeUpAction extends Action {
-  type = "com.davidborzek.foobar2000.volumeup";
+class VolumeUpAction extends ActionRouter {
+  static type = "com.davidborzek.foobar2000.volumeup";
 
   setVolume = (volume) => {
     this.foobarCurrentVolume = volume;
@@ -11,10 +11,10 @@ class VolumeUpAction extends Action {
     foobar.setVolume(
       this.foobarCurrentVolume + volumeStep,
       (success, message) => {
-        websocketUtils.setState(this.context, state);
+        $SD.setState(this.context, state);
         if (!success) {
-          websocketUtils.showAlert(this.context);
-          websocketUtils.log(
+          $SD.showAlert(this.context);
+          $SD.logMessage(
             "Error to increase the volume, check if foobar is running!"
           );
         }

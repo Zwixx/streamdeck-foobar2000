@@ -1,32 +1,31 @@
 const PlaybackState = Object.freeze({
-  paused: 0,
-  playing: 1,
+  paused: 1,
+  playing: 0,
 });
 
-class PlayPauseAction extends Action {
-  type = "com.davidborzek.foobar2000.playpause";
+class PlayPauseAction extends ActionRouter {
+  static type = "com.davidborzek.foobar2000.playpause";
 
   setPlaybackState = (playbackState) => {
     this.foobarPlaybackState = playbackState;
   };
 
   onKeyDown = (coordinates, state) => {
+    console.log(this.foobarPlaybackState);
     if (this.foobarPlaybackState === "stopped") {
       foobar.playRandom((success, msg) => {
-        websocketUtils.setState(this.context, state);
         if (!success) {
-          websocketUtils.showAlert(this.context);
-          websocketUtils.log(
+          $SD.showAlert(this.context);
+          $SD.logMessage(
             "Error to play a random song, check if foobar is running!"
           );
         }
       });
     } else {
       foobar.togglePlayPause((success, msg) => {
-        websocketUtils.setState(this.context, state);
         if (!success) {
-          websocketUtils.showAlert(this.context);
-          websocketUtils.log(
+          $SD.showAlert(this.context);
+          $SD.logMessage(
             "Error to play or pause, check if foobar is running!"
           );
         }
@@ -34,18 +33,24 @@ class PlayPauseAction extends Action {
     }
   };
 
-  onKeyUp = (coordinates, state) => {
-    websocketUtils.setState(this.context, state);
+  onKeyUp = async (coordinates, state) => {
+    this.refreshState();
   };
 
   onWillAppear = (coordinates) => {
+    this.refreshState();
+  };
+
+  refreshState = async () => {
+    foobarPlayerState = await foobar.getPlayerState();
     if (this.foobarPlaybackState) {
-      websocketUtils.setState(
+      this.setPlaybackState(foobarPlayerState.playbackState);
+      $SD.setState(
         this.context,
         PlaybackState[this.foobarPlaybackState]
       );
     } else {
-      websocketUtils.showAlert(this.context);
+      $SD.showAlert(this.context);
     }
-  };
+  }
 }

@@ -1,5 +1,5 @@
-class NowPlayingAction extends Action {
-  type = "com.davidborzek.foobar2000.nowplaying";
+class NowPlayingAction extends ActionRouter {
+  static type = "com.davidborzek.foobar2000.nowplaying";
 
   setCurrentPlayback = (playback, image) => {
     this.foobarCurrentPlayback = playback;
@@ -8,7 +8,7 @@ class NowPlayingAction extends Action {
 
   onWillAppear = (coordinates) => {
     if (this.foobarCurrentPlayback.playbackState === "stopped") {
-      websocketUtils.setTitle(this.context, "Stopped");
+      $SD.setTitle(this.context, "Stopped");
     } else {
       intervals[this.context] && clearInterval(intervals[this.context]);
       websocketUtils.setAsyncTitleMultiline(
