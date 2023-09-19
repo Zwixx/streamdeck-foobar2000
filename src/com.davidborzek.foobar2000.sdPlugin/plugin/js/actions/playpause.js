@@ -11,7 +11,9 @@ class PlayPauseAction extends ActionRouter {
   };
 
   onKeyDown = (coordinates, state) => {
-    console.log(this.foobarPlaybackState);
+    if (this.foobarPlaybackState === undefined) {
+      this.setPlaybackState("stopped");
+    }
     if (this.foobarPlaybackState === "stopped") {
       foobar.playRandom((success, msg) => {
         if (!success) {
