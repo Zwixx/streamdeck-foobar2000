@@ -10,6 +10,7 @@
 /// <reference path="plugin/js/actions/skipbackward.js" />
 /// <reference path="plugin/js/actions/skipforward.js" />
 /// <reference path="plugin/js/actions/currentvolume.js" />
+/// <reference path="plugin/js/actions/nowPlaying.js" />
 
 const plugins = [
 	new PlayPauseAction(PlayPauseAction.type),
@@ -21,7 +22,8 @@ const plugins = [
 	new VolumeUpAction(VolumeUpAction.type),
 	new SkipBackwardAction(SkipBackwardAction.type),
 	new SkipForwardAction(SkipForwardAction.type),
-	new CurrentVolumeAction(CurrentVolumeAction.type)
+	new CurrentVolumeAction(CurrentVolumeAction.type),
+	new NowPlayingAction(NowPlayingAction.type),
 ];
 
 
@@ -31,6 +33,8 @@ const $FB = new Object({
 	volume: null,
 	state: null,
 	connected: false,
+	title: null,
+	artwork: null,
 })
 
 $SD.onConnected(({ actionInfo, appInfo, connection, messageType, port, uuid }) => {
@@ -47,6 +51,7 @@ $SD.onConnected(({ actionInfo, appInfo, connection, messageType, port, uuid }) =
 			$FB.isMuted = foobarPlayerState.volume.isMuted;
 			$FB.volume = foobarPlayerState.volume.value;
 			$FB.state = foobarPlayerState.playbackState;
+			$FB.title = foobarPlayerState.activeItem;
 			$FB.connected = true;
 
 			plugins.forEach((plugin) => {

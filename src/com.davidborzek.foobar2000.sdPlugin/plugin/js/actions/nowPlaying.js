@@ -1,24 +1,16 @@
 class NowPlayingAction extends ActionRouter {
   static type = "com.davidborzek.foobar2000.nowplaying";
 
-  setCurrentPlayback = (playback, image) => {
-    this.foobarCurrentPlayback = playback;
-    this.currentArtwork = image;
-  };
-
   onWillAppear = (coordinates) => {
-    if (this.foobarCurrentPlayback.playbackState === "stopped") {
+    if ($FB.title == null) {
       $SD.setTitle(this.context, "Stopped");
     } else {
-      intervals[this.context] && clearInterval(intervals[this.context]);
-      websocketUtils.setAsyncTitleMultiline(
-        this.foobarCurrentPlayback.activeItem.columns[1],
-        this.foobarCurrentPlayback.activeItem.columns[0],
-        300,
-        this.context
+      $SD.setTitle(
+        this.context,
+        $FB.title.columns[0] + ' ' + $FB.title.columns[1]
       );
 
-      websocketUtils.setImage(
+      $SD.setImage(
         this.context,
         this.currentArtwork
       )
