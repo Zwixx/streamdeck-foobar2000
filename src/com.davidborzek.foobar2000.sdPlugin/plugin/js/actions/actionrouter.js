@@ -25,6 +25,21 @@ class ActionRouter {
         this.onWillAppear(payload.coordinates, payload.state);
       }
     });
+    action.onDialRotate(({state, payload}) => {
+      if (this.onDialRotate != null) {
+        this.onDialRotate(state, payload);
+      }
+    });
+    action.onDialPress(({coordinates, state, payload}) => {
+      if (this.onDialPress != null) {
+        this.onDialPress(coordinates, state, payload);
+      }
+    });
+    action.onTouchTap(({coordinates, state, payload}) => {
+      if (this.onTouchTap != null) {
+        this.onTouchTap(coordinates, state, payload);
+      }
+    });
   }
 
   getContext = () => {

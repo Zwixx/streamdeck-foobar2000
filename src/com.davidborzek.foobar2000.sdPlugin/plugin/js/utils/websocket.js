@@ -35,4 +35,14 @@ const websocketUtils = {
       currentFirstChar2++;
     }, interval);
   },
+  
+  setFeedback: (context, icon, title, value, indicator) => {
+    const payload = {
+        'title': title,
+        'value': value,
+        'indicator': indicator,
+        icon
+      };
+    $SD.setFeedback(context, payload);
+  },
 };

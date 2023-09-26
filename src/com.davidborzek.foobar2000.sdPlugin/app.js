@@ -24,9 +24,8 @@ const plugins = [
 	new SkipForwardAction(SkipForwardAction.type),
 	new CurrentVolumeAction(CurrentVolumeAction.type),
 	new NowPlayingAction(NowPlayingAction.type),
+	new CenterAction(CenterAction.type),
 ];
-
-
 
 const $FB = new Object({
 	isMuted: null,
