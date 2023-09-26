@@ -7,6 +7,8 @@
 /// <reference path="plugin/js/actions/togglemute.js" />
 /// <reference path="plugin/js/actions/volumedown.js" />
 /// <reference path="plugin/js/actions/volumeup.js" />
+/// <reference path="plugin/js/actions/skipbackward.js" />
+/// <reference path="plugin/js/actions/skipforward.js" />
 
 const playpause = new PlayPauseAction(PlayPauseAction.type);
 const pause = new PauseAction(PauseAction.type);
@@ -15,6 +17,8 @@ const stop = new StopAction(StopAction.type);
 const togglemute = new ToggleMuteAction(ToggleMuteAction.type);
 const volumedown = new VolumeDownAction(VolumeDownAction.type);
 const volumeup = new VolumeUpAction(VolumeUpAction.type);
+const skipbackward = new SkipBackwardAction(SkipBackwardAction.type);
+const skipforward = new SkipForwardAction(SkipForwardAction.type);
 
 const $FB = new Object({
 	isMuted: null,
