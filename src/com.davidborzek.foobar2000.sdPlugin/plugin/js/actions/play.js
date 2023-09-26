@@ -8,6 +8,8 @@ class PlayAction extends ActionRouter {
         $SD.log(
           "Error to play or pause, check if foobar is running!"
         );
+      } else {
+        $FB.state = "playing";
       }
     });
   };
