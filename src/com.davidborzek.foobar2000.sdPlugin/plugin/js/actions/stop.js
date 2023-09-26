@@ -9,6 +9,8 @@ class StopAction extends ActionRouter {
         $SD.logMessage(
           "Error to stop the playback, check if foobar is running!"
         );
+      } else {
+        $FB.state = "stopped";
       }
     });
   };

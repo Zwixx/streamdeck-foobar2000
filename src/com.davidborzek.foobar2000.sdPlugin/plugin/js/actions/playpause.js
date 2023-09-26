@@ -6,15 +6,11 @@ const PlaybackState = Object.freeze({
 class PlayPauseAction extends ActionRouter {
   static type = "com.davidborzek.foobar2000.playpause";
 
-  setPlaybackState = (playbackState) => {
-    this.foobarPlaybackState = playbackState;
-  };
-
   onKeyDown = (coordinates, state) => {
-    if (this.foobarPlaybackState === undefined) {
-      this.setPlaybackState("stopped");
+    if ($FB.state == null) {
+      return;
     }
-    if (this.foobarPlaybackState === "stopped") {
+    if ($FB.state === "stopped") {
       foobar.playRandom((success, msg) => {
         if (!success) {
           $SD.showAlert(this.context);

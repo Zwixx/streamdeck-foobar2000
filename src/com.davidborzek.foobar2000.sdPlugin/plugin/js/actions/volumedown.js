@@ -1,15 +1,13 @@
 class VolumeDownAction extends ActionRouter {
   static type = "com.davidborzek.foobar2000.volumedown";
 
-  setVolume = (volume) => {
-    this.foobarCurrentVolume = volume;
-  };
-
   onKeyDown = (coordinates, state) => {
+    
     const volumeStep = this.settings.volumeStep || 1;
+    $FB.volume -= volumeStep;
 
     foobar.setVolume(
-      this.foobarCurrentVolume - volumeStep,
+      $FB.volume,
       (success, message) => {
         $SD.setState(this.context, state);
         if (!success) {

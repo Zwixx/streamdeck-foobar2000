@@ -4,13 +4,23 @@
 /// <reference path="plugin/js/actions/pause.js" />
 /// <reference path="plugin/js/actions/play.js" />
 /// <reference path="plugin/js/actions/stop.js" />
+/// <reference path="plugin/js/actions/togglemute.js" />
+/// <reference path="plugin/js/actions/volumedown.js" />
+/// <reference path="plugin/js/actions/volumeup.js" />
 
-//const playpause = new Action(PlayPauseAction.type);
 const playpause = new PlayPauseAction(PlayPauseAction.type);
 const pause = new PauseAction(PauseAction.type);
 const play = new PlayAction(PlayAction.type);
 const stop = new StopAction(StopAction.type);
+const togglemute = new ToggleMuteAction(ToggleMuteAction.type);
+const volumedown = new VolumeDownAction(VolumeDownAction.type);
+const volumeup = new VolumeUpAction(VolumeUpAction.type);
 
+const $FB = new Object({
+	isMuted: null,
+	volume: null,
+	state: null,
+})
 /**
  * The first event fired when Stream Deck starts
  */
@@ -26,7 +36,9 @@ $SD.onConnected(({ actionInfo, appInfo, connection, messageType, port, uuid }) =
 			if (playlistIndex > -1 && index > -1) {
 				foobarPlayerArtwork = await foobar.getCurrentArtwork(playlistIndex, index);
 			}
-			playpause.setPlaybackState(foobarPlayerState.playbackState);
+			$FB.isMuted = foobarPlayerState.volume.isMuted;
+			$FB.volume = foobarPlayerState.volume.value;
+			$FB.state = foobarPlayerState.playbackState;
 		} catch (e) {
 			console.log(
 			"Error to connect with foobar2000, check if foobar is running!"

@@ -6,12 +6,9 @@ const MuteState = Object.freeze({
 class ToggleMuteAction extends ActionRouter {
   static type = "com.davidborzek.foobar2000.togglemute";
 
-  setMuteStatus = (muted) => {
-    this.foobarMuteState = muted;
-  };
-
   onKeyDown = (coordinates, state) => {
-    foobar.setMuteStatus(state !== MuteState.muted, (success, message) => {
+    $FB.isMuted = !$FB.isMuted;
+    foobar.setMuteStatus($FB.isMuted, (success, message) => {
       $SD.setState(this.context, state);
       if (!success) {
         $SD.showAlert(this.context);
@@ -21,11 +18,11 @@ class ToggleMuteAction extends ActionRouter {
   };
 
   onKeyUp = (coordinates, state) => {
-    $SD.setState(this.context, state);
+    $SD.setState(this.context, $FB.isMuted ? MuteState.muted : MuteState.unmuted);
   };
 
   onWillAppear = (coordinates) => {
-    if (this.foobarMuteState !== undefined) {
+    if ($FB.isMuted !== null) {
       $SD.setState(
         this.context,
         this.foobarMuteState ? MuteState.muted : MuteState.unmuted

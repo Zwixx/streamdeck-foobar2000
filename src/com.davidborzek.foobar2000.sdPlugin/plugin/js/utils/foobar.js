@@ -80,7 +80,7 @@ const foobar = {
     try {
       const response = await axios.post(
         `${foobar.baseUrl}/player`,
-        { volume },
+        { volume: volume },
         {
           timeout: 500,
         }
