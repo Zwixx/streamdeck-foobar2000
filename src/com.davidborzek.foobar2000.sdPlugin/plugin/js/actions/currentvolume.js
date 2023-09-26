@@ -1,15 +1,11 @@
 class CurrentVolumeAction extends ActionRouter {
   static type = "com.davidborzek.foobar2000.currentvolume";
 
-  setCurrentVolume = (volume) => {
-    this.foobarCurrentVolume = volume;
-  };
-
   onWillAppear = (coordinates) => {
-    if (this.foobarCurrentVolume > -100) {
+    if ($FB.volume != null) {
       $SD.setTitle(
         this.context,
-        `${Math.ceil(100 + this.foobarCurrentVolume)}`
+        `${Math.ceil(100 + $FB.volume)}`
       );
     } else {
       $SD.showAlert(this.context);

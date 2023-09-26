@@ -40,12 +40,10 @@ class PlayPauseAction extends ActionRouter {
   };
 
   refreshState = async () => {
-    foobarPlayerState = await foobar.getPlayerState();
-    if (this.foobarPlaybackState) {
-      this.setPlaybackState(foobarPlayerState.playbackState);
+    if ($FB.state != null) {
       $SD.setState(
         this.context,
-        PlaybackState[this.foobarPlaybackState]
+        PlaybackState[$FB.state]
       );
     } else {
       $SD.showAlert(this.context);
